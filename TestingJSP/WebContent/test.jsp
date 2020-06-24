@@ -1,11 +1,12 @@
 <%@ page import="testJSP.testJAVA"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>JSP</title>
 </head>
 <body>
 	<h1>FINISHED</h1>
@@ -15,6 +16,7 @@
 		String apellido = request.getParameter("lastName");
 // 		out.println("The Number is " + count + "\nNombre: " + nombre);
 	%>
+	<c:out value="Prueba"></c:out><br>
 	<%= testJAVA.saludos(nombre, apellido) %>
 </body>
 </html>
