@@ -3,10 +3,10 @@ package testJSP;
 public class testJAVA {
 
 	public static void main(String[] args) {
-		System.out.println("ESTÁS EN EL MÓDULO");
+		System.out.println("ESTï¿½S EN EL Mï¿½DULO");
 	}
 
 	public static String saludos(String name, String lastName) {
-		return "\nHola " + name + " " + lastName + ", estás en en .jar";
+		return "\nHola " + name + " " + lastName + ", estï¿½s en en .jar";
 	}
 }
