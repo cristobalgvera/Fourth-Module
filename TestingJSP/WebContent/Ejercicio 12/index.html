@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es-cl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="./css/ejemploFormulario.css">
+<script>
+	function msg(value) {
+		alert(value);
+	}
+</script>
+<title>Formulario</title>
+</head>
+
+<body>
+	<section class="registry">
+		<form action="../test.jsp">
+			<h4>Fomulario de registro</h4>
+			<div id="inputs">
+				<input class="input" type="text" name="name"
+					placeholder="Ingrese su nombre"> <input class="input"
+					type="text" name="lastName" placeholder="Ingrese su apellido">
+				<input class="input" type="email" name="email"
+					placeholder="Ingrese su correo"> <input class="input"
+					type="password" name="password" placeholder="Ingrese su contraseña">
+			</div>
+			<!--       <p><input type="checkbox" name="terms" required> Estoy de acuerdo con los <a href="#">Términos y condiciones</a></p> -->
+			<input class="register" type="submit" name="submit" value="Registrar">
+		</form>
+		<p>
+			<a href="#">Ya tengo una cuenta</a>
+		</p>
+	</section>
+
+	<!-- Imagen comparativa
+
+  <div>
+    <div id="divisor">
+      <hr>
+    </div>
+    <div style="text-align: center">
+      <img src="./img/form.jpeg" style="width: 40%; height: 40%">
+    </div>
+  </div> -->
+
+</body>
+</html>
