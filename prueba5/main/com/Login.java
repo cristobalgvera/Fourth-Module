@@ -1,4 +1,4 @@
-package java;
+package com;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -43,25 +43,31 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String user = request.getParameter("name");
+		String user = request.getParameter("user");
 		String pass = request.getParameter("pass");
 
 		String credentials = "root";
 		RequestDispatcher dispatcher;
 
 		if (credentials.equals(user) && credentials.equals(pass)) {
-			dispatcher = request.getRequestDispatcher("successful.jsp");
+			dispatcher = request.getRequestDispatcher("jsp/successful.jsp");
 
 			// Obtener fecha y hora del sistema para conexión
 			LocalDateTime myDateObj = LocalDateTime.now();
-			System.out.println("Before formatting: " + myDateObj);
 			DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 			String formattedDate = myDateObj.format(myFormatObj);
 
 			// Creamos el objeto cliente de la clase User
 			Object client = new User(user, pass, formattedDate);
+			
+			/* 
+			 * Asignamos atributos del usuario a la sesión, es decir,
+			 * estos atributos quedarán insertados en el servidor y
+			 * hasta que este no sea reiniciado, estos atributos existirán
+			*/
+			request.getSession().setAttribute("client", client);
 		} else {
-			dispatcher = request.getRequestDispatcher("error.html");
+			dispatcher = request.getRequestDispatcher("html/error.html");
 		}
 
 		// Transmitimos la respuesta mediante el dispatcher
