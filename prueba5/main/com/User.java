@@ -1,4 +1,4 @@
-package com.java;
+package com;
 
 public class User {
 	String user, pass, connectionTime;
