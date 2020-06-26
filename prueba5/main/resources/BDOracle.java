@@ -55,7 +55,7 @@ public class BDOracle extends HttpServlet {
 			System.out.println(tamano);
 			rs.beforeFirst(); // lo dejo donde estaba para tratarlo
 			while (rs.next()) {
-				System.out.println(rs.getString(1));
+				System.out.println(rs.getString("NOMBRE") + " " + rs.getString(2));
 			}
 			// step5 close the connection object
 			con.close();
