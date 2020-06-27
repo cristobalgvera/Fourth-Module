@@ -33,13 +33,16 @@ public class Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String attributeName = "registration";
-		String path = "index.jsp";
+		String path = null;
 		String action = request.getParameter("submit-btn");
+
 		switch (action) {
 		case "Crear":
+			
 			break;
 		case "Listar":
 			request.setAttribute(attributeName, Read.action());
+			path = "index.jsp";
 			break;
 		case "Actualizar":
 			break;
@@ -48,7 +51,8 @@ public class Controller extends HttpServlet {
 		default:
 			throw new IllegalArgumentException("Valor inesperado: " + action);
 		}
-		dispatcher = request.getRequestDispatcher(path);
+		
+		dispatcher = request.getRequestDispatcher((path == null) ? "index.jsp" : path);
 		dispatcher.forward(request, response);
 	}
 
@@ -60,5 +64,4 @@ public class Controller extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }
