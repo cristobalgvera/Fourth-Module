@@ -1,41 +1,33 @@
 package database;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-/**
- * Servlet implementation class OracleConnection
- */
-@WebServlet("/OracleConnection")
-public class OracleConnection extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public OracleConnection() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+public class OracleConnection {
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public static Connection conect() {
+		Connection connection = null;
+		String password = "12345";
+		String usuario = "BDD";
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			connection = DriverManager.getConnection(url, usuario, password);
+			System.out.println("Conexión exitosa");
+		} catch (SQLException | ClassNotFoundException e) {
+			System.out.println("No se pudo conectar a la base de datos - " + e.getMessage());
+		}
+		return connection;
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	
+	public void close(Connection connection) {
+		try {
+			connection.close();
+			System.out.println("Desconexión exitosa");
+		} catch (SQLException e) {
+			System.out.println("La base de datos no está conectada - " + e.getMessage());
+		}
 	}
-
 }
