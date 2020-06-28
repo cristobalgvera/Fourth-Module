@@ -17,7 +17,6 @@ import crud.*;
 @WebServlet("/Action")
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static RequestDispatcher dispatcher;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -33,16 +32,20 @@ public class Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String attributeName = "registration";
-		String path = null;
+		String path = "index.jsp";
 		String action = request.getParameter("submit-btn");
+		RequestDispatcher dispatcher;
 
 		switch (action) {
 		case "Crear":
-			
+			path = "new.jsp";
+			break;
+		case "Registrar":
+			Create.action(request);
+			request.setAttribute(attributeName, Read.action());
 			break;
 		case "Listar":
 			request.setAttribute(attributeName, Read.action());
-			path = "index.jsp";
 			break;
 		case "Actualizar":
 			break;
@@ -52,7 +55,7 @@ public class Controller extends HttpServlet {
 			throw new IllegalArgumentException("Valor inesperado: " + action);
 		}
 		
-		dispatcher = request.getRequestDispatcher((path == null) ? "index.jsp" : path);
+		dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
 	}
 

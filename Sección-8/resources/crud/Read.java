@@ -5,13 +5,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Read extends States {
-	
+
 	public static Object action() {
 		defaultQuery = "SELECT * FROM CLIENTES";
 		try {
-			statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			initiateConnection();
+			statement = oConnection.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_UPDATABLE);
 			resultSet = statement.executeQuery(defaultQuery);
 			while (resultSet.next()) {
 				List<String> rowData = new ArrayList<>();
@@ -20,11 +21,11 @@ public class Read extends States {
 				}
 				registration.setData(rowData);
 			}
-			connection.close();
 		} catch (SQLException e) {
-			System.out.println("Error: " + e.getMessage());
+			System.out.println("Read error: " + e.getMessage());
 		}
+		closeConnection();
 		return registration;
 	}
-	
+
 }

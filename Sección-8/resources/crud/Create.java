@@ -1,27 +1,31 @@
 package crud;
 
-import java.sql.ResultSet;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+
+import database.OracleConnection;
 
 public class Create extends States {
-	public static Object action() {
-		defaultQuery = "INSERT INTO ";
+	public static Object action(HttpServletRequest request) {
+		defaultQuery = "INSERT INTO CLIENTES (NOMBRE, APELLIDO, RUT, CIUDAD, EDAD) VALUES (?, ?, ?, ?, ?)";
+		String[] inputNames = {"name", "lastName", "rut", "city", "age"};
 		try {
-			statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			resultSet = statement.executeQuery(defaultQuery);
-			while (resultSet.next()) {
-				List<String> rowData = new ArrayList<>();
-				for (int columnIndex = 1; columnIndex <= resultSet.getMetaData().getColumnCount(); columnIndex++) {
-					rowData.add(resultSet.getString(columnIndex));
-				}
-				registration.setData(rowData);
+			oConnection = new OracleConnection();
+			pStatement = oConnection.getConnection().prepareStatement(defaultQuery);
+			request.setCharacterEncoding("UTF-8");
+			for (int i = 0; i < inputNames.length; i++) {
+				// TODO Request para codificación UTF-8
+				pStatement.setString(i+1, request.getParameter(inputNames[i]));
+//				System.out.println(request.getParameter(inputNames[i]));
 			}
-			connection.close();
-		} catch (SQLException e) {
-			System.out.println("Error: " + e.getMessage());
+			pStatement.executeUpdate();
+		} catch (SQLException | UnsupportedEncodingException e) {
+			System.out.println("Create error: " + e.getMessage());
 		}
+		closeConnection();
 		return registration;
 	}
 }
